@@ -1,0 +1,18 @@
+FROM golang:alpine
+
+RUN apk add curl openssl
+
+# install dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# install air
+RUN go install github.com/cosmtrek/air@v1.29.0
+
+WORKDIR /gomod/app
+
+COPY .netrc /root/.netrc
+
+CMD ["dockerize", "-wait", "tcp://mongo:27017", "-timeout", "60s", "air", "-d", "-c", "./air.conf"]

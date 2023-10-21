@@ -1,0 +1,22 @@
+
+.modal {
+  .modal-dialog {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  .modal-header {
+    padding-top: 2em;
+    border-bottom: none;
+    text-align: center;
+    justify-content: center;
+    h5 {
+      font-weight: 500;
+    }
+  }
+
+  .modal-footer {
+    justify-content: center;
+    border-top: none;
+    padding-bottom: 2em;
+  }
+}

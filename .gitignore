@@ -1,0 +1,12 @@
+tmp/
+.netrc
+.vscode/*
+*.pem
+node_modules
+.tmp
+.cache
+.parcel-cache
+assets/
+.env.*
+papelito
+__debug_bin

@@ -1,0 +1,25 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.personalized-loading-wrapper {
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border-radius: 100%;
+  margin: 0.5rem;
+  
+  .personalized-loading {
+    animation-duration: 6s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    box-sizing: border-box;
+    display: inline-block;
+    max-height: 100px;
+  }
+}

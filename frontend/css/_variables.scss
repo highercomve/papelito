@@ -1,0 +1,54 @@
+// Fonts
+$font-family-sans-serif: 'Montserrat', sans-serif;
+$font-family-base: 'Montserrat', sans-serif;
+
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #2A2F38;
+$black:    #000;
+
+// Colors
+$blue:    #53c0f3;
+$indigo:  #6610f2;
+$purple:  #653CF1;
+$pink:    #d63384;
+$red:     #e1747a;
+$orange:  #F6BC72;
+$yellow:  #eed72e;
+$green:   #5dbf7f;
+$teal:    #20c997;
+$cyan:    #0dcaf0;
+
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-200;
+$dark:          $gray-900;
+
+// Inputs
+$input-color: $primary;
+$input-font-weight: bold;
+
+// Buttons
+$btn-padding-x: 2em;
+$border-radius: 12px;
+$border-radius-lg: 12px;
+$border-radius-sm: 12px;
+$btn-border-width: 2px;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1290px
+)

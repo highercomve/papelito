@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -x
+
+rm -rf /app/assets/*
+rm -rf /app/.parcel-cache
+cp -r frontend/img/ assets/
+yarn
+
+yarn watch --no-cache --hmr-port 46723 --log-level verbose

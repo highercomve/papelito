@@ -1,0 +1,42 @@
+{{ define "sidebar" }}
+{{ if eq .Authenticated "true" }}
+<ul class="nav flex-column nav-pills">
+  <li class="nav-item">
+    <a
+      {{ if eq .Template  "dashboard.html" }}
+        class="nav-link active"
+      {{else}}
+        class="nav-link"
+      {{ end }}
+      href="/dashboard"
+    >
+      Dashboard
+    </a>
+  </li>
+  <li class="nav-item">
+    <a
+      {{ if eq .Template  "devices/list.html" }}
+        class="nav-link active"
+      {{else}}
+        class="nav-link"
+      {{ end }}
+      href="/devices"
+    >
+      Devices
+    </a>
+  </li>
+  <li class="nav-item">
+    <a
+      {{ if eq .Template  "channels/list.html" }}
+        class="nav-link active"
+      {{else}}
+        class="nav-link"
+      {{ end }}
+      href="/channels"
+    >
+      Channels
+    </a>
+  </li>
+</ul>
+{{ end }}
+{{ end }}

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -x
+
+mongod --bind_ip_all --port 27017 &
+# mongod --auth --replSet ${MONGO_RS} --bind_ip_all --port 27017 &
+
+sleep 5
+
+# until mongo --eval "rs.initiate().ok || rs.status().ok"; do
+#   echo "checking replica set"
+#   sleep 1
+# done
+
+until mongo --eval 'db.createUser({user: "user", pwd: "pass", roles: [{role: "readWrite", db:"papelito"}], mechanisms: ["SCRAM-SHA-1"]})' localhost:27017/papelito; do
+  echo "checking mongo"
+  if mongo --eval 'db.getUsers()' mongodb://user:pass@localhost:27017/papelito; then
+    echo "get users"
+    break
+  fi
+  echo "checking mongo done"
+  sleep 1
+done
+
+tail -f /proc/$(pidof mongod)/fd/1

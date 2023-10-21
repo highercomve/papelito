@@ -1,0 +1,104 @@
+{{define "partials/_pagination"}}
+{{ $maxPage := divide .Total .PageSize }}
+{{ $pageSize := .PageSize }}
+{{ $lastOffset := sub (multiply $maxPage .PageSize) .PageSize }}
+{{ $pagesizeFounded := false }}
+
+<div class="d-flex align-items-center justify-content-end">
+  <div class="d-flex align-items-center ">
+    <div class="mr--1">
+      Total: {{.Total}}
+    </div>
+    <div class="mr--1">
+      <span class="mr--1">Page size:</span> 
+      <select
+        name="page_size"
+        id="page_size"
+      >
+        {{ range $index, $page := .PageSizes }}
+          {{if eq $page $pageSize}}
+            {{$pagesizeFounded = true}}
+          {{end}}
+          <option value="{{$page}}" {{if eq $page $pageSize}} selected {{end}}>
+            {{$page}}
+          </option>
+        {{ end }}
+        {{ if not $pagesizeFounded }}
+          <option value="{{$pageSize}}" selected>
+            {{$pageSize}}
+          </option>
+        {{ end }}
+      </select>
+    </div>
+  </div>
+  <nav class="">
+    <ul class="pagination" style="margin:0;padding:0;">
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="{{.ServiceURL}}?page[size]={{.PageSize}}&page[offset]=0"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {{if gt (sub .CurrentPage 1)  1}}
+      <li class="page-item">
+        <a
+          class="page-link disabled"
+          href="#"
+        >
+          ...
+        </a>
+      </li>
+      {{end }}
+      {{if gt .CurrentPage 1 }}
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="{{.Prev}}"
+          >
+            {{ sub .CurrentPage 1 }}
+          </a>
+        </li>
+      {{end}}
+      <li class="page-item active">
+        <a
+          class="page-link disabled"
+          href="#"
+        >
+          {{ .CurrentPage }}
+        </a>
+      </li>
+      {{if lt .CurrentPage $maxPage }}
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="{{.Next}}"
+          >
+            {{ add .CurrentPage 1 }}
+          </a>
+        </li>
+        {{if lt (add .CurrentPage 1) $maxPage }}
+          <li class="page-item">
+            <a
+              class="page-link disabled"
+              href="#"
+            >
+              ...
+            </a>
+          </li>
+        {{end}}
+      {{end}}
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="{{.ServiceURL}}?page[size]={{.PageSize}}&page[offset]={{$lastOffset}}"
+          aria-label="Last">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{{end}}

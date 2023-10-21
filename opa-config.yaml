@@ -1,0 +1,6 @@
+# distributed_tracing:
+#   type: grpc
+#   address: 192.168.68.119:4317
+#   service_name: opa
+#   sample_percentage: 50
+#   encryption: "off"

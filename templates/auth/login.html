@@ -1,0 +1,47 @@
+{{ extends "layout/base.html" }}
+{{ define "title" }}
+  Login to Papelito
+{{ end }}
+
+{{ define "header" }}
+<div class="d-flex justify-content-center">
+  <div class="pt--9 text-center">
+    <header class="pb--4">
+      <a
+        aria-current="page"
+        class="navbar-brand active"
+        href="/dashboard"
+      >
+        <img
+          alt="Papelito"
+          src="/assets/img/logo.svg"
+          height="40" />
+      </a>
+    </header>
+    <h4 class="mb--1">Welcome to Papelito.</h4>
+    <h5>Game papelito</h5>
+  </div>
+</div>  
+{{ end}}
+
+{{ define "content"}}
+<section class="container-fluid">
+  <div class="row justify-content-center align-items-center align-content-center pt--10 pb--10">
+    <section class="col-sm-6 col-xs-10">
+      <form action="/auth/login" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Email or username</label>
+          <input type="text" name="username" class="form-control" id="username" placeholder="username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" id="password">
+        </div>
+        <button class="btn btn-outline-primary" type="submit">
+          Login
+        </button>
+      </form>
+    </section>
+  </div>
+</section>
+{{ end }}

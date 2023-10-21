@@ -1,0 +1,30 @@
+style: gitlab
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/highercomve/papelito
+options:
+  commits:
+    filters:
+      Type:
+        - feature
+        - feat
+        - fix
+        - perf
+        - refactor
+  commit_groups:
+    title_maps:
+      feature: Features
+      feat: Features
+      fix: Bug Fixes
+      perf: Performance Improvements
+      refactor: Code Refactoring
+  header:
+    pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+  notes:
+    keywords:
+      - BREAKING CHANGE

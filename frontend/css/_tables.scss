@@ -1,0 +1,29 @@
+
+.table {
+  border-collapse: separate; 
+  border-spacing: 0 1em;
+
+  th {
+    font-weight: normal;
+    font-size: 0.8em;
+    vertical-align: center;
+    min-width: 120px;
+    i {
+      transform: translateX(5px) translateY(25%);
+    }
+  }
+
+  tbody {
+    tr {
+      background-color: white;
+      margin-bottom: 0.5em;
+    }
+  }
+  
+  &.table-lg {
+    td {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+  }
+}

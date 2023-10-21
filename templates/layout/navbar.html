@@ -1,0 +1,78 @@
+{{ define "navbar" }}
+<div
+  class="collapse navbar-collapse navigation-main d-flex justify-content-end"
+>
+  {{ if eq .Authenticated "true" }}
+    <div class="dropdown">
+      <button
+        class="btn btn-outline-primary btn-sm dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        data-toggle-target="settings-dropdown"
+        aria-expanded="false"
+      >
+        <!-- <img
+          height="40"
+          alt="{{.Nick}}"
+          style="border-radius: 100%; margin-right: 5px;"
+          src="https://via.placeholder.com/100/FFFFFF?text=F"
+        /> -->
+        <span style="margin-right: 5px;">
+          {{.Nick}}
+        </span>
+      </button>
+      <ul class="dropdown-menu" id="settings-dropdown">
+        <li>
+          <a
+            {{ if eq .Template  "credentials/list.html" }}
+              class="dropdown-item active"
+            {{else}}
+              class="dropdown-item"
+            {{ end }}
+            href="/credentials"
+          >
+            Connected Accounts
+          </a>
+        </li>
+        <li>
+          <a
+            {{ if eq .Template  "tokens/list.html" }}
+              class="dropdown-item active"
+            {{else}}
+              class="dropdown-item"
+            {{ end }}
+            href="/tokens"
+          >
+            Tokens
+          </a>
+        </li>
+        <li>
+          <a
+            {{ if eq .Template  "settings/customization.html" }}
+              class="dropdown-item active"
+            {{else}}
+              class="dropdown-item"
+            {{ end }}
+            href="/settings/customization"
+          >
+            Customization
+          </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="/auth/logout"
+          >
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  {{else}}
+    <a class="nav-link nav-link-account" href="/auth/login">
+      Log In
+    </a>
+  {{end}}
+</div>
+{{end}}

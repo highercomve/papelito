@@ -1,0 +1,5 @@
+# .netrc
+.vscode/*
+*.pem
+node_modules
+.tmp

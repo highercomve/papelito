@@ -1,0 +1,86 @@
+version: "3"
+
+services:
+  app:
+    container_name: papelito-app
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    volumes:
+      - ${PWD}:/gomod/app
+    ports:
+      - "9090:9090"
+    env_file: 
+      - ./env.default
+      - ./.env.local
+    links:
+      - mongo
+      - frontend
+      - fluentd
+      - elasticsearch
+      - opa
+
+  fluentd:
+    container_name: papelito-fluentd
+    image: fluentd:latest
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+    links:
+      - elasticsearch
+    ports:
+      - "5140:5140"
+      - "24224:24224"
+      - "24224:24224/udp"
+
+  elasticsearch:
+    container_name: papelito-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
+      - "discovery.type=single-node"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: always
+    # ports:
+    #   - "9200:9200"
+    #   - "9300:9300"
+
+  frontend:
+    container_name: papelito-fw
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ${PWD}/assets:/app/assets
+      - ${PWD}/.cache:/app/.cache
+      - ${PWD}/frontend:/app/frontend
+      - ${PWD}/package.json:/app/package.json
+      - ${PWD}/tsconfig.json:/app/tsconfig.json
+      - ${PWD}/fw-entrypoint:/app/entrypoint
+    command: /app/entrypoint
+    ports:
+      - "46723:46723"
+
+  mongo:
+    image: mongo:4.4.3
+    container_name: papelito-db
+    hostname: mongo
+    restart: always
+    command: /docker-entrypoint
+    env_file:
+      - ./env.default
+      - ./.env.local
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: papelito
+    ports:
+      - "27000:27017"
+    volumes:
+      - ./mongo-entrypoint:/docker-entrypoint

@@ -1,0 +1,16 @@
+FROM node:14.20.1-alpine3.16 as node_builder
+
+WORKDIR /app
+COPY package.json /app
+# COPY babel.config.json /app
+COPY tsconfig.json /app
+COPY yarn.lock /app
+COPY assets /app/assets
+COPY .parcel-cache /app/.parcel-cache
+COPY frontend /app/frontend
+COPY .parcelrc /app/.parcelrc
+
+COPY fw-entrypoint /app/entrypoint
+RUN yarn
+
+ENTRYPOINT /app/entrypoint
