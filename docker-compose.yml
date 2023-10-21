@@ -15,7 +15,7 @@ services:
       - ./.env.local
     links:
       - mongo
-      # - frontend
+      - frontend
       - fluentd
       - elasticsearch
 
@@ -52,6 +52,7 @@ services:
       - ${PWD}/assets:/app/assets
       - ${PWD}/.parcel-cache:/app/.parcel-cache
       - ${PWD}/frontend:/app/frontend
+      - ${PWD}/.parcelrc:/app/.parcelrc
       - ${PWD}/package.json:/app/package.json
       - ${PWD}/tsconfig.json:/app/tsconfig.json
       - ${PWD}/fw-entrypoint:/app/entrypoint
