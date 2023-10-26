@@ -17,12 +17,10 @@
 
   <link rel="stylesheet" type="text/css" href="css/index.scss" />
   
-  <script defer type="text/javascript" src="http://localhost:9090/assets/environment.js"></script>
-  <script defer type="text/javascript" src="./static/1.9.6_dist_htmx.min.js"></script>  
-  <script defer type="text/javascript" src="./static/1.9.6_dist_ext_multi-swap.js"></script>  
+  <script defer type="text/javascript" src="http://localhost:9090/assets/environment.js"></script>  
   <title>{{ block "title" .}}{{ end }}</title>
 </head>
-<body class="bg-light" id="{{ .TemplateID }}" hx-ext="multi-swap">
+<body class="bg-light" id="{{ .TemplateID }}" hx-ext="multi-swap, morph">
   
   <header class="header">
     {{ block "header" .}}{{ end }}
@@ -36,6 +34,9 @@
     {{ block "footer" .}}{{ end }}
   </footer>
 
+  <script defer type="text/javascript" src="./static/1.9.6_dist_htmx.min.js"></script>  
+  <script defer type="text/javascript" src="./static/1.9.6_dist_ext_multi-swap.js"></script>  
+  <script defer type="text/javascript" src="./static/0.0.9_dist_idiomorph-ext.min.js"></script>
   <script defer type="module" src="./js/app.js"></script>
 </body>
 </html>
