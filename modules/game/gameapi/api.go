@@ -3,8 +3,11 @@ package gameapi
 import (
 	"fmt"
 
+	"github.com/highercomve/papelito/modules/game/gameservice"
 	"github.com/labstack/echo/v4"
 )
+
+var gameService = gameservice.NewGameMachine()
 
 // Load Create new auth service
 func Load(e *echo.Group) *echo.Group {

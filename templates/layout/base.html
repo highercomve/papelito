@@ -14,12 +14,10 @@
 
   <link rel="stylesheet" type="text/css" href="/assets/css.b20aa503.css">
   
-  <script defer="" src="http://localhost:9090/assets/environment.js"></script>
-  <script defer="" src="/assets/index.a9420bf8.js"></script>  
-  <script defer="" src="/assets/index.5b6d9638.js"></script>  
+  <script defer="" src="http://localhost:9090/assets/environment.js"></script>  
   <title>{{ block "title" .}}{{ end }}</title>
 </head>
-<body class="bg-light" id="{{ .TemplateID }}" hx-ext="multi-swap" hx-boost="true">
+<body class="bg-light" id="{{ .TemplateID }}" hx-ext="multi-swap, morph">
   
   <header class="header">
     {{ block "header" .}}{{ end }}
@@ -33,6 +31,9 @@
     {{ block "footer" .}}{{ end }}
   </footer>
 
+  <script defer="" src="/assets/index.a9420bf8.js"></script>  
+  <script defer="" src="/assets/index.5b6d9638.js"></script>  
+  <script defer="" src="/assets/index.deca82b7.js"></script>
   <script defer="" src="/assets/index.8e7107bf.js"></script>
 </body>
 </html>

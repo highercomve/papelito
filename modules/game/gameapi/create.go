@@ -1,6 +1,7 @@
 package gameapi
 
 import (
+	"fmt"
 	"net/http"
 
 	gamemachine "github.com/highercomve/papelito/modules/game/gameservice"
@@ -14,9 +15,15 @@ func CreateGame(c echo.Context) error {
 		return err
 	}
 
+	fmt.Println(*payload)
 	if err := c.Validate(payload); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.Render(http.StatusOK, "games/game.html", payload)
+	game, err := gameService.CreateGame(payload)
+	if err != nil {
+		return c.Render(http.StatusBadRequest, "games/create.html", err)
+	}
+
+	return c.Redirect(http.StatusTemporaryRedirect, "/games/"+game.ID)
 }

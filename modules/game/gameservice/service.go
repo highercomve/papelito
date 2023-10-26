@@ -1,4 +1,4 @@
-package gamemachine
+package gameservice
 
 import (
 	"time"
@@ -49,11 +49,11 @@ type Group struct {
 type Configuration struct {
 	helpermodels.Identification `json:",inline"`
 
-	Groups          int           `json:"groups" from:"groups" validate:"required"`
-	Members         int           `json:"members" from:"members" validate:"required"`
-	WordsForMembers int           `json:"words_for_members" from:"words_for_members" validate:"required"`
-	Scenes          int           `json:"scenes" from:"scenes"`
-	TurnDuration    time.Duration `json:"turn_duration" from:"turn_duration" validate:"required"`
+	Groups          int           `json:"groups" form:"groups" validate:"required"`
+	Members         int           `json:"members" form:"members" validate:"required"`
+	WordsForMembers int           `json:"words_for_members" form:"words_for_members" validate:"required"`
+	Scenes          int           `json:"scenes" form:"scenes"`
+	TurnDuration    time.Duration `json:"turn_duration" form:"turn_duration" validate:"required"`
 }
 
 type Game struct {
