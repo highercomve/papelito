@@ -1,6 +1,21 @@
 :root {
   --primary-color: var(--bs-purple);
+  --grey: #333;
+  --grey-100: rgb(40, 40, 40);
+  --grey-200: rgb(80, 80, 80);
+  --grey-300: rgb(120, 120, 120);
+  --grey-400: rgb(160, 160, 160);
+  --grey-500: rgb(200, 200, 200);
+  --grey-600: rgb(220, 220, 220);
+  --grey-700: rgb(240, 240, 240);
+  --primary: #6264eb;
+  --success: #5dbf7f;
+  --info: #0dcaf0;
+  --warning: #eed72e;
+  --danger: #e1747a;
+  --white: white;
 }
+
 
 @keyframes spining {
   0% {
@@ -342,9 +357,7 @@ h6 {
 
   &.bg-footer-bg {
     background: none;
-    &:before {
-      background: var(--footer-bg);
-    }
+    &:before {}
   }
 
   &.bg-brown {

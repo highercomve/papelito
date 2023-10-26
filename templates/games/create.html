@@ -1,0 +1,39 @@
+{{ extends "layout/base.html" }}
+{{ define "title" }}
+  Create Game
+{{ end }}
+
+
+{{ define "content"}}
+<section class="container-fluid">
+  <div class="row justify-content-center align-items-center align-content-center pt--10 pb--10">
+    <section class="col-sm-6 col-xs-10">
+      <form action="/games/" method="POST">
+        <div class="mb-3">
+          <label for="name" class="form-label">Game name</label>
+          <input required type="text" name="name" id="name" placeholder="game name"class="form-control" >
+        </div>
+        <div class="mb-3">
+          <label for="members" class="form-label">Number of members</label>
+          <input required type="number" class="form-control" name="members" id="members">
+        </div>
+        <div class="mb-3">
+          <label for="groups" class="form-label">Number of groups</label>
+          <input required type="number" class="form-control" name="groups" id="groups">
+        </div>
+        <div class="mb-3">
+          <label for="words_for_members" class="form-label">Words for member</label>
+          <input  required type="number" class="form-control" name="words_for_members" id="words_for_members">
+        </div>
+        <div class="mb-3">
+          <label for="turn_duration" class="form-label">Turn Duration</label>
+          <input required type="number" class="form-control" name="turn_duration" id="turn_duration">
+        </div>
+        <button class="btn btn-primary" type="submit">
+          Start playing
+        </button>
+      </form>
+    </section>
+  </div>
+</section>
+{{ end }}

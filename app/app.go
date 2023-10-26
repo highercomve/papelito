@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/highercomve/papelito/modules/auth/authapi"
+	"github.com/highercomve/papelito/modules/game/gameapi"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -14,6 +15,7 @@ func LoadApp(e *echo.Echo) *echo.Group {
 	}))
 
 	authapi.Load(app)
+	gameapi.Load(app)
 
 	return app
 }

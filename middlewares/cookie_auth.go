@@ -9,9 +9,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const desactivateAuthentication = true
+
 // CookieAuthentication middleware
 func CookieAuthentication(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		if desactivateAuthentication {
+			return next(c)
+		}
 		token := strings.TrimSpace(strings.Replace(c.Request().Header.Get("Authorization"), "Bearer ", "", 1))
 		if token != "" {
 			return next(c)

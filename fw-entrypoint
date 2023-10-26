@@ -7,4 +7,4 @@ rm -rf /app/.parcel-cache
 cp -r frontend/img/ assets/
 yarn
 
-yarn watch --no-cache --hmr-port 46723 --log-level verbose
+yarn watch --no-cache --hmr-port 46723 --log-level verbose --dist-dir assets --public-url /assets

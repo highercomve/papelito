@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" as="style" href=https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&display=swap"> 
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="preload" as="fonts" href=https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&display=swap"> 
+  <link rel="preload" as="fonts" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="preload" as="style" type="text/css" href="css/index.scss" />
   
   <link rel="manifest" href="http://localhost:9090/assets/manifest.json" />
@@ -32,7 +32,7 @@
       {{ block "content" .}}{{ end }}
     </div>
   </section>
-  <footer class="footer-container-fluid bg-dark">
+  <footer class="footer-container-fluid bg-light">
     {{ block "footer" .}}{{ end }}
   </footer>
 

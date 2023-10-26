@@ -6,7 +6,7 @@ import (
 
 // Load Create new auth service
 func Load(e *echo.Group) *echo.Group {
-	g := e.Group("auth")
+	g := e.Group("/auth")
 
 	g.GET("/login", LoginPage)
 	g.POST("/login", Authorize)

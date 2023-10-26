@@ -1,12 +1,11 @@
 /* Footer */
 .footer-container-fluid {
-  background-color: var(--footer-bg);
-  padding: 50px 0;
+  padding: 2em 0;
   color: #3f3f3f;
   font-size: 0.9rem;
 
   a.nav-link {
-    color: #c0c0c0;
+    color: var(--grey-100);
   }
 
   @media screen and (max-width: 560px) {
@@ -20,7 +19,7 @@
   }
 
   a {
-    color: #c0c0c0;
+    color: var(--grey-100);
     font-weight: 600;
   }
   
@@ -47,10 +46,10 @@
   } 
 
   .ct-social-box {
-    --linkInitialColor: #15162d;
+    --linkInitialColor: white;
     --spacing: 20px;
     --linkHoverColor: #ffffff;
-    --backgroundColor: #c0c0c0;
+    --backgroundColor: black;
     --backgroundColorHover: var(--blue);
     --border-radius: 100%;
     --icon-size: 15px;
@@ -65,6 +64,7 @@
     a {
       display: flex;
       align-items: center;
+      color: var(--linkInitialColor);
       margin-top: var(--spacing);
       margin-left: calc(var(--spacing) / 2);
       margin-right: calc(var(--spacing) / 2);
@@ -75,14 +75,17 @@
       align-items: center;
       justify-content: center;
       border-radius: var(--border-radius, 0px);
+      color: var(--linkInitialColor);
       transition: background 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),border-color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-      background: #c0c0c0;
+      background: var(--backgroundColor);
       width: calc(var(--icon-size) * 2.5);
       height: calc(var(--icon-size) * 2.5);
 
       svg {
         height: var(--icon-size);
         width: var(--icon-size);
+        color: var(--linkInitialColor);
+        fill:  var(--linkInitialColor);
       }
     }
     .ct-label {
