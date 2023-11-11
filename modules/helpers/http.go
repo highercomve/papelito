@@ -374,7 +374,7 @@ func GetPaginationLink(u url.URL, total int64, last, first helpermodels.Datable)
 }
 
 // SetMongoPagination set pagination
-func SetMongoPagination(q, s bson.M, pa map[string]interface{}, queryOptions *options.FindOptions) {
+func SetMongoPagination(q, s, pa map[string]interface{}, queryOptions *options.FindOptions) {
 	limit := int64(DefaultPageSize)
 	if pa != nil {
 		if l, ok := pa["limit"]; ok {

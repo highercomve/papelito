@@ -1,7 +1,6 @@
 package gameapi
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -11,9 +10,8 @@ import (
 func GetGame(c echo.Context) error {
 	id := c.Param("id")
 
-	fmt.Printf("%++v", gameService.Games)
-	game, ok := gameService.Games[id]
-	if !ok {
+	game, err := gameService.GetGame(c.Request().Context(), id, nil)
+	if err != nil {
 		return echo.ErrNotFound
 	}
 

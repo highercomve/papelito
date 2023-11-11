@@ -3,13 +3,13 @@ package gameapi
 import (
 	"net/http"
 
-	gamemachine "github.com/highercomve/papelito/modules/game/gameservice"
+	"github.com/highercomve/papelito/modules/game/gamemodels"
 	"github.com/labstack/echo/v4"
 )
 
 // UpdateGame create game page
 func UpdateGame(c echo.Context) error {
-	payload := new(gamemachine.Configuration)
+	payload := new(gamemodels.Configuration)
 	if err := c.Bind(payload); err != nil {
 		return err
 	}

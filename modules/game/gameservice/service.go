@@ -1,11 +1,15 @@
 package gameservice
 
 import (
+	"context"
 	"time"
 
 	"github.com/goombaio/namegenerator"
+	"github.com/highercomve/papelito/modules/game/gamemodels"
+	"github.com/highercomve/papelito/modules/game/gamerepo"
 	"github.com/highercomve/papelito/modules/game/statemachine"
 	"github.com/highercomve/papelito/modules/helpers/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/helperrepo"
 )
 
 const (
@@ -13,99 +17,56 @@ const (
 	OnCreatedGameEvent = statemachine.EventType("on-created-game")
 )
 
-const (
-	ErrorGameNotCreated = "game can't be created"
-)
-
-type Player struct {
-	helpermodels.Identification `json:",inline"`
-
-	Name  string  `json:"name"`
-	Words []Words `json:"words"`
-}
-
-type Words struct {
-	helpermodels.Identification `json:",inline"`
-
-	Title string `json:"title"`
-}
-
-type Scene struct {
-	helpermodels.Identification `json:",inline"`
-
-	Number  int            `json:"number"`
-	Words   []Words        `json:"words"`
-	Results map[string]int `json:"results"`
-}
-
-type Group struct {
-	helpermodels.Identification `json:",inline"`
-
-	Name    string            `json:"name"`
-	Members map[string]Player `json:"members"`
-	Words   map[string]map[string]bool
-}
-
-type Configuration struct {
-	helpermodels.Identification `json:",inline"`
-
-	Groups          int           `json:"groups" form:"groups" validate:"required"`
-	Members         int           `json:"members" form:"members" validate:"required"`
-	WordsForMembers int           `json:"words_for_members" form:"words_for_members" validate:"required"`
-	Scenes          int           `json:"scenes" form:"scenes"`
-	TurnDuration    time.Duration `json:"turn_duration" form:"turn_duration" validate:"required"`
-}
-
-type Game struct {
-	helpermodels.Identification
-	helpermodels.Timestamp
-
-	Players       map[string]Player `json:"players"`
-	Words         []Words           `json:"words"`
-	Groups        map[string]Group  `json:"groups"`
-	Scenes        []Scene           `json:"scenes"`
-	Configuration *Configuration    `json:"configuration"`
-}
-
 type GameMachine struct {
 	machine statemachine.IStateMachine
+	storage *gamerepo.Repo
 
-	Games map[string]Game
+	Games map[string]gamemodels.Game
 }
 
 func NewGameMachine() *GameMachine {
 	statemachine := statemachine.NewGameMachine()
+	repo, err := gamerepo.GetRepo()
+	if err != nil {
+		return nil
+	}
 	machine := &GameMachine{
 		machine: statemachine,
-		Games:   map[string]Game{},
+		storage: repo,
 	}
 
 	return machine
 }
 
-func (m *GameMachine) CreateGame(config *Configuration) (*Game, error) {
-	game := Game{
+func (m *GameMachine) CreateGame(ctx context.Context, config *gamemodels.Configuration) (*gamemodels.Game, error) {
+	game := &gamemodels.Game{
 		Identification: helpermodels.NewIdentification("game"),
 		Timestamp:      helpermodels.NewTimeStamp(),
+		Ownership:      helpermodels.Ownership{},
 		Configuration:  config,
-		Players:        map[string]Player{},
-		Words:          make([]Words, config.WordsForMembers*config.Members),
-		Groups:         map[string]Group{},
+		Players:        map[string]gamemodels.Player{},
+		Words:          make([]gamemodels.Words, config.WordsForMembers*config.Members),
+		Groups:         map[string]gamemodels.Group{},
 	}
 	seed := time.Now().UTC().UnixNano()
 	nameGenerator := namegenerator.NewNameGenerator(seed)
 
 	for i := 0; i < game.Configuration.Groups; i++ {
-		group := Group{
+		group := gamemodels.Group{
 			Identification: helpermodels.NewIdentification("group"),
 			Name:           nameGenerator.Generate(),
-			Members:        map[string]Player{},
+			Members:        map[string]gamemodels.Player{},
 			Words:          map[string]map[string]bool{},
 		}
 		game.Groups[group.ID] = group
 	}
 
-	m.Games[game.ID] = game
+	err := m.storage.Repo.UpdateOne(ctx, game, true)
+	return game, err
+}
 
-	return &game, nil
+func (m *GameMachine) GetGame(ctx context.Context, id string, p helperrepo.Map) (game *gamemodels.Game, err error) {
+	game = &gamemodels.Game{}
+	err = m.storage.Repo.FindByID(ctx, id, p, game)
+	return game, err
 }

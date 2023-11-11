@@ -14,15 +14,29 @@ import (
 )
 
 var (
-	storage Storage
+	storage StorageMongo
 )
 
-// Storage define all storage action and methods
-type Storage struct {
+type Storage interface {
+	GetDatabase() *mongo.Database
+	GetCollection(name string) *mongo.Collection
+}
+
+// StorageMongo define all storage action and methods
+type StorageMongo struct {
 	Database         string
 	CollectionPrefix string
 	client           *mongo.Client
 	timeoutDuration  time.Duration
+}
+
+func (s *StorageMongo) GetDatabase() *mongo.Database {
+	return s.client.Database(s.Database)
+}
+
+func (s *StorageMongo) GetCollection(name string) *mongo.Collection {
+	name = s.CollectionPrefix + name
+	return s.client.Database(s.Database).Collection(name)
 }
 
 // IsNotFound resource not found
@@ -42,17 +56,8 @@ func IsDuplicateKey(key string, err error) bool {
 
 }
 
-func (s *Storage) GetDatabase() *mongo.Database {
-	return s.client.Database(s.Database)
-}
-
-func (s *Storage) GetCollection(name string) *mongo.Collection {
-	name = s.CollectionPrefix + name
-	return s.client.Database(s.Database).Collection(name)
-}
-
 // New create new Storage Struct
-func NewStorage(prefix string) (*Storage, error) {
+func NewStorage(prefix string) (Storage, error) {
 	if storage.client != nil {
 		return &storage, nil
 	}
@@ -68,7 +73,7 @@ func NewStorage(prefix string) (*Storage, error) {
 	}
 
 	mongoDb := helpers.GetEnv("MONGO_DB", "")
-	storage = Storage{
+	storage = StorageMongo{
 		client:           client,
 		Database:         mongoDb,
 		timeoutDuration:  timeout,

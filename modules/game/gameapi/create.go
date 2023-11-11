@@ -1,26 +1,24 @@
 package gameapi
 
 import (
-	"fmt"
 	"net/http"
 
-	gamemachine "github.com/highercomve/papelito/modules/game/gameservice"
+	"github.com/highercomve/papelito/modules/game/gamemodels"
 	"github.com/labstack/echo/v4"
 )
 
 // CreateGame create game page
 func CreateGame(c echo.Context) error {
-	payload := new(gamemachine.Configuration)
+	payload := new(gamemodels.Configuration)
 	if err := c.Bind(payload); err != nil {
 		return err
 	}
 
-	fmt.Println(*payload)
 	if err := c.Validate(payload); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	game, err := gameService.CreateGame(payload)
+	game, err := gameService.CreateGame(c.Request().Context(), payload)
 	if err != nil {
 		return c.Render(http.StatusBadRequest, "games/create.html", err)
 	}

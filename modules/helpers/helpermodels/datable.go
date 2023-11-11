@@ -5,5 +5,6 @@ type Datable interface {
 	Identificable
 	Timeable
 	Ownable
+
 	GetServicePrn() string
 }
