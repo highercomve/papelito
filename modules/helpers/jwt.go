@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import (
 	"fmt"
@@ -7,8 +7,8 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/highercomve/papelito/modules/auth/authmodels"
-	"github.com/highercomve/papelito/utils/authn"
-	"github.com/highercomve/papelito/utils/prnx"
+	"github.com/highercomve/papelito/modules/helpers/authn"
+	"github.com/highercomve/papelito/modules/helpers/prnx"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

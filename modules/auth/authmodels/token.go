@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/highercomve/papelito/modules/helper/helpermodels"
-	"github.com/highercomve/papelito/utils/prnx"
+	"github.com/highercomve/papelito/modules/helpers/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/prnx"
 )
 
 const TokenServicePrn = "tokens"

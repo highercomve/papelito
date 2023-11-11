@@ -3,7 +3,7 @@ package middlewares
 import (
 	"strings"
 
-	"github.com/highercomve/papelito/utils"
+	"github.com/highercomve/papelito/modules/helpers"
 	"github.com/labstack/echo/v4"
 )
 
@@ -14,7 +14,7 @@ func ValidateAuthenticity(next echo.HandlerFunc) echo.HandlerFunc {
 
 		if isForm && c.Request().Method == echo.POST {
 			authenticityToken := c.FormValue("authenticity_token")
-			err := utils.ValidateAuthenticityToken(authenticityToken)
+			err := helpers.ValidateAuthenticityToken(authenticityToken)
 			if err != nil {
 				return echo.NewHTTPError(400, "Form authenticiy is invalid")
 			}

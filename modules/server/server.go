@@ -16,12 +16,12 @@ import (
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 
-	"github.com/highercomve/papelito/api"
-	"github.com/highercomve/papelito/app"
-	"github.com/highercomve/papelito/app/dashboard"
 	docs "github.com/highercomve/papelito/docs"
-	"github.com/highercomve/papelito/middlewares"
-	"github.com/highercomve/papelito/utils"
+	"github.com/highercomve/papelito/modules/api"
+	"github.com/highercomve/papelito/modules/app"
+	"github.com/highercomve/papelito/modules/app/dashboard"
+	"github.com/highercomve/papelito/modules/helpers"
+	"github.com/highercomve/papelito/modules/middlewares"
 
 	"go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho"
 )
@@ -40,7 +40,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 func Start(serverAddress string) {
 	docs.SwaggerInfo.BasePath = "/api/v1/"
 	docs.SwaggerInfo.Schemes = []string{"https"}
-	docs.SwaggerInfo.Host = utils.Env.HostURL
+	docs.SwaggerInfo.Host = helpers.Env.HostURL
 
 	e := echo.New()
 
@@ -56,7 +56,7 @@ func Start(serverAddress string) {
 	e.Validator = &CustomValidator{
 		Validator: validator.New(),
 	}
-	cookieSecret := []byte(utils.Env.SessionSecret)
+	cookieSecret := []byte(helpers.Env.SessionSecret)
 	cookieStore := sessions.NewCookieStore(cookieSecret)
 	cookieStore.Options.HttpOnly = true
 	cookieStore.Options.Secure = true
@@ -76,7 +76,7 @@ func Start(serverAddress string) {
 	}
 
 	// Set Middlewares
-	e.Use(otelecho.Middleware(utils.GetEnv("OTEL_SERVICE_NAME", "papelito")))
+	e.Use(otelecho.Middleware(helpers.GetEnv("OTEL_SERVICE_NAME", "papelito")))
 	e.Use(session.Middleware(cookieStore))
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -84,7 +84,7 @@ func Start(serverAddress string) {
 	e.Use(middleware.RequestID())
 	e.Use(middleware.CORSWithConfig(corsConfig))
 
-	if utils.GetEnv("DEBUG", "") == "true" {
+	if helpers.GetEnv("DEBUG", "") == "true" {
 		e.Debug = true
 	}
 

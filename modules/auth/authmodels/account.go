@@ -1,7 +1,7 @@
 package authmodels
 
 import (
-	"github.com/highercomve/papelito/modules/helper/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/helpermodels"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

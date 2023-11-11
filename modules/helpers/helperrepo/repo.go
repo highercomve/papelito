@@ -5,7 +5,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/highercomve/papelito/modules/helper/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/helpermodels"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

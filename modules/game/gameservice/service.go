@@ -5,7 +5,7 @@ import (
 
 	"github.com/goombaio/namegenerator"
 	"github.com/highercomve/papelito/modules/game/statemachine"
-	"github.com/highercomve/papelito/modules/helper/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/helpermodels"
 )
 
 const (

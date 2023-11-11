@@ -16,7 +16,7 @@ import (
 	"github.com/dannyvankooten/extemplate"
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/parser"
-	"github.com/highercomve/papelito/utils"
+	"github.com/highercomve/papelito/modules/helpers"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 )
@@ -63,7 +63,7 @@ type TemplateRenderer struct {
 // Render renders a template document
 func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	contentType := c.Request().Header.Get("Accept")
-	format := utils.GetFormat(contentType)
+	format := helpers.GetFormat(contentType)
 
 	switch format {
 	case "json":
@@ -140,7 +140,7 @@ func extendPayload(data interface{}, name string, c echo.Context) interface{} {
 			"Nick":          nick,
 			"Template":      name,
 			"TemplateID":    templateID,
-			"ServerURL":     utils.Env.HostURL,
+			"ServerURL":     helpers.Env.HostURL,
 		}
 	}
 
@@ -150,7 +150,7 @@ func extendPayload(data interface{}, name string, c echo.Context) interface{} {
 		Nick:          nick,
 		Template:      name,
 		TemplateID:    templateID,
-		ServerURL:     utils.Env.HostURL,
+		ServerURL:     helpers.Env.HostURL,
 	}
 }
 

@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/highercomve/papelito/utils/authn"
+	"github.com/highercomve/papelito/modules/helpers/authn"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 )

@@ -1,7 +1,7 @@
 package helpermodels
 
 import (
-	"github.com/highercomve/papelito/utils/prnx"
+	"github.com/highercomve/papelito/modules/helpers/prnx"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

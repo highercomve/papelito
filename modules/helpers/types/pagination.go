@@ -3,7 +3,7 @@ package types
 import (
 	"net/url"
 
-	"github.com/highercomve/papelito/utils"
+	"github.com/highercomve/papelito/modules/helpers"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -17,10 +17,10 @@ type QueryOP struct {
 func GetQueryOPFromURL(url *url.URL) QueryOP {
 	asp := QueryOP{}
 
-	asp.Query = utils.GetMongoQueryFromQuery(url.Query())
-	asp.Sort = utils.GetMongoSortingFromQuery(url.Query())
-	asp.Projection = utils.GetMongoFieldsFromQuery(url.Query())
-	asp.Pagination = utils.GetMongoPaginationFromQuery(url.Query())
+	asp.Query = helpers.GetMongoQueryFromQuery(url.Query())
+	asp.Sort = helpers.GetMongoSortingFromQuery(url.Query())
+	asp.Projection = helpers.GetMongoFieldsFromQuery(url.Query())
+	asp.Pagination = helpers.GetMongoPaginationFromQuery(url.Query())
 
 	if _, ok := asp.Pagination["offset"]; !ok {
 		asp.Pagination["offset"] = 0

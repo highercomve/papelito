@@ -7,19 +7,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/highercomve/papelito/modules/helper/helperrepo"
-	"github.com/highercomve/papelito/server"
-	"github.com/highercomve/papelito/utils"
-	"github.com/highercomve/papelito/utils/tracer"
+	"github.com/highercomve/papelito/modules/helpers"
+	"github.com/highercomve/papelito/modules/helpers/helperrepo"
+	"github.com/highercomve/papelito/modules/helpers/tracer"
+	"github.com/highercomve/papelito/modules/server"
 )
 
 func init() {
-	utils.SetupEnvDefaults()
+	helpers.SetupEnvDefaults()
 
 	buildEnvironmentJS("assets")
 
 	// Start connection to database
-	_, err := helperrepo.NewStorage(utils.Env.CollectionPrefix)
+	_, err := helperrepo.NewStorage(helpers.Env.CollectionPrefix)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -39,8 +39,8 @@ func init() {
 // @BasePath /
 
 func main() {
-	if utils.GetEnv("OTEL_EXPORTER_OTLP_ENDPOINT", "") != "" {
-		tp := tracer.Init(utils.GetEnv("OTEL_SERVICE_NAME", "papelito"))
+	if helpers.GetEnv("OTEL_EXPORTER_OTLP_ENDPOINT", "") != "" {
+		tp := tracer.Init(helpers.GetEnv("OTEL_SERVICE_NAME", "papelito"))
 		defer func() {
 			if err := tp.Shutdown(context.Background()); err != nil {
 				log.Printf("Error shutting down tracer provider: %v", err)
@@ -48,8 +48,8 @@ func main() {
 		}()
 	}
 
-	if utils.GetEnv("DISABLE_API", "") != "true" {
-		serverAddres := fmt.Sprintf("%s:%s", utils.Env.ServerHost, utils.Env.ServerPort)
+	if helpers.GetEnv("DISABLE_API", "") != "true" {
+		serverAddres := fmt.Sprintf("%s:%s", helpers.Env.ServerHost, helpers.Env.ServerPort)
 		server.Start(serverAddres)
 	}
 }

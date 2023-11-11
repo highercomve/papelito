@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/highercomve/papelito/modules/helper/helpermodels"
+	"github.com/highercomve/papelito/modules/helpers/helpermodels"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"

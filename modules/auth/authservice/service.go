@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/highercomve/papelito/modules/auth/authmodels"
-	"github.com/highercomve/papelito/utils/prnx"
+	"github.com/highercomve/papelito/modules/helpers/prnx"
 	"github.com/labstack/echo/v4"
 )
 

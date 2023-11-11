@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/highercomve/papelito/utils"
+	"github.com/highercomve/papelito/modules/helpers"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
@@ -62,12 +62,12 @@ func NewStorage(prefix string) (*Storage, error) {
 		return nil, err
 	}
 
-	timeout, err := time.ParseDuration(utils.GetEnv("MONGO_TIMEOUT_DURATION", "30m"))
+	timeout, err := time.ParseDuration(helpers.GetEnv("MONGO_TIMEOUT_DURATION", "30m"))
 	if err != nil {
 		return nil, err
 	}
 
-	mongoDb := utils.GetEnv("MONGO_DB", "")
+	mongoDb := helpers.GetEnv("MONGO_DB", "")
 	storage = Storage{
 		client:           client,
 		Database:         mongoDb,
@@ -79,12 +79,12 @@ func NewStorage(prefix string) (*Storage, error) {
 
 // GetMongoClient : To Get Mongo Client Object
 func GetMongoClient() (*mongo.Client, error) {
-	mongoDb := utils.GetEnv("MONGO_DB", "")
-	user := utils.GetEnv("MONGO_USER", "")
-	pass := utils.GetEnv("MONGO_PASS", "")
-	host := utils.GetEnv("MONGO_HOST", "localhost")
-	port := utils.GetEnv("MONGO_PORT", "27017")
-	mongoRs := utils.GetEnv("MONGO_RS", "")
+	mongoDb := helpers.GetEnv("MONGO_DB", "")
+	user := helpers.GetEnv("MONGO_USER", "")
+	pass := helpers.GetEnv("MONGO_PASS", "")
+	host := helpers.GetEnv("MONGO_HOST", "localhost")
+	port := helpers.GetEnv("MONGO_PORT", "27017")
+	mongoRs := helpers.GetEnv("MONGO_RS", "")
 
 	//Setting Client Options
 	clientOptions := options.Client()
@@ -124,7 +124,7 @@ func GetMongoClient() (*mongo.Client, error) {
 		clientOptions.SetMonitor(otelmongo.NewMonitor())
 	}
 
-	timeoutEnv := utils.GetEnv("MONGO_TIMEOUT_DURATION", "30m")
+	timeoutEnv := helpers.GetEnv("MONGO_TIMEOUT_DURATION", "30m")
 	timeout, err := time.ParseDuration(timeoutEnv)
 	if err != nil {
 		timeout = 10 * time.Second
